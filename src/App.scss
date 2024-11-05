@@ -1,0 +1,23 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+
+header {
+  height: 46px;
+  border-bottom: 1px solid #ebebeb;
+}
+
+.code_editor {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  .file_list {
+    height: 30px;
+    border-bottom: 1px solid #ebebeb;
+  }
+  .editor {
+    flex: 1;
+  }
+}

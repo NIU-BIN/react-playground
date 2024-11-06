@@ -1,22 +1,23 @@
-import React from "react";
+import React, { useContext } from "react";
 import FileList from "./FileList";
 import Editor from "./Editor";
+import { PlaygroundContext } from "@/context/PlaygroundContext";
+import { debounce } from "@/utils";
 
 const CodeEditor = () => {
-  const file = {
-    name: "test.tsx",
-    value: 'import lodash from "lodash";\n\nconst a = <div>test</div>',
-    language: "typescript",
-  };
+  const { files, setFiles, selectedFileName } = useContext(PlaygroundContext);
 
-  function onEditorChange() {
-    console.log(...arguments);
-  }
+  const onEditorChange = (value?: string) => {
+    files[selectedFileName].value = value || "";
+    setFiles({
+      ...files,
+    });
+  };
 
   return (
     <div className="code_editor">
       <FileList></FileList>
-      <Editor file={file} onChange={onEditorChange}></Editor>
+      <Editor file={files[selectedFileName]} onChange={debounce(onEditorChange)}></Editor>
     </div>
   );
 };

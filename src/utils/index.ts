@@ -6,3 +6,20 @@ export const getFileLanguage = (fileName: string) => {
   if (["css"].includes(suffix)) return "css";
   return "javascript";
 };
+
+type DebounceFunc<T extends (...args: any) => any> = (...args: Parameters<T>) => void;
+
+export function debounce<T extends (...args: any) => any>(func: T, delay = 500): DebounceFunc<T> {
+  let timeout: NodeJS.Timeout | null = null;
+
+  const debounced: DebounceFunc<T> = (...args) => {
+    if (timeout !== null) {
+      clearTimeout(timeout);
+    }
+    timeout = setTimeout(() => {
+      func(...args);
+    }, delay);
+  };
+
+  return debounced;
+}

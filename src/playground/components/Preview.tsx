@@ -9,7 +9,7 @@ const Preview = () => {
   const { files } = useContext(PlaygroundContext);
 
   useEffect(() => {
-    console.log("files 内容更改");
+    console.log("files 内容更改", files);
     const res = compile(files);
     setCompiledCode(res);
   }, [files]);

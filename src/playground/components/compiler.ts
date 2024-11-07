@@ -24,11 +24,12 @@ const getModuleFile = (files: Files, modulePath: string) => {
 
 // 将 "css的引入" 转为 "js插入style标签" 的代码，并转为URL
 const cssToJs = (file: File) => {
+  const randomId = new Date().getTime();
   const js = `
 (() => {
   const stylesheet = document.createElement('style')
-
-  const style = document.createTextNode(${file.value})
+  stylesheet.setAttribute('id', 'style_${randomId}_${file.name}')
+  const style = document.createTextNode(\`${file.value}\`)
   stylesheet.innerHTML = ''
   stylesheet.appendChild(style)
   document.head.append(stylesheet) 

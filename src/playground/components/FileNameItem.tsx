@@ -1,24 +1,32 @@
 import React, { useContext, useRef, useState } from "react";
 import { PlaygroundContext } from "@/context/PlaygroundContext";
 import CloseIcon from "@/assets/close.svg";
+import { APP_CONTAINER_FILE_NAME } from "@/lib/data";
 
 interface Props {
   fileName: string;
+  basicFiles: string[];
 }
 
 const FileNameItem = (props: Props) => {
-  const { fileName } = props;
-  const { files, setFiles, addFile, updateFileName, selectedFileName, setSelectedFileName } =
+  const { fileName, basicFiles } = props;
+  const { removeFile, updateFileName, selectedFileName, setSelectedFileName } =
     useContext(PlaygroundContext);
   const inputRef = useRef<HTMLInputElement>(null);
   const [isEdit, setIsEdit] = useState(false);
   const [name, setName] = useState(fileName);
 
-  const handleDelete = (fileName: string) => {
-    delete files[fileName];
+  const handleDelete = (e: React.MouseEvent<HTMLImageElement, MouseEvent>, fileName: string) => {
+    e.stopPropagation();
+    const res = confirm(`是否确认删除${fileName}文件？`);
+    if (res) {
+      setSelectedFileName(APP_CONTAINER_FILE_NAME);
+      removeFile(fileName);
+    }
   };
 
   const handleDoubleClick = () => {
+    if (basicFiles.includes(fileName)) return;
     setIsEdit(true);
     setTimeout(() => {
       inputRef.current?.focus();
@@ -26,6 +34,7 @@ const FileNameItem = (props: Props) => {
   };
 
   const inputBlur = () => {
+    if (!name) return;
     setIsEdit(false);
     updateFileName(fileName, name);
     setSelectedFileName(name);
@@ -46,12 +55,19 @@ const FileNameItem = (props: Props) => {
           onBlur={inputBlur}
         />
       ) : (
-        <span onDoubleClick={handleDoubleClick}>{fileName}</span>
+        <span className="file_item_label" onDoubleClick={handleDoubleClick}>
+          {fileName}
+        </span>
       )}
-      {isEdit ? (
+      {isEdit || basicFiles.includes(fileName) ? (
         <></>
       ) : (
-        <img src={CloseIcon} alt="" className="close_icon" onClick={() => handleDelete(fileName)} />
+        <img
+          src={CloseIcon}
+          alt=""
+          className="close_icon"
+          onClick={(e) => handleDelete(e, fileName)}
+        />
       )}
     </li>
   );

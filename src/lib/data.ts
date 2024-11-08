@@ -11,6 +11,11 @@ export const IMPORT_MAP_FILE_NAME = "import-map.json"; //  用于 esm 模块映�
 export const APP_STYLE_FILE_NAME = "App.css"; // 全局css
 
 export const initFiles: Files = {
+  [IMPORT_MAP_FILE_NAME]: {
+    name: IMPORT_MAP_FILE_NAME,
+    language: getFileLanguage(IMPORT_MAP_FILE_NAME),
+    value: importMap,
+  },
   [APP_ENTRY_FILE_NAME]: {
     name: APP_ENTRY_FILE_NAME,
     language: getFileLanguage(APP_ENTRY_FILE_NAME),
@@ -25,10 +30,5 @@ export const initFiles: Files = {
     name: APP_STYLE_FILE_NAME,
     language: getFileLanguage(APP_STYLE_FILE_NAME),
     value: AppCss,
-  },
-  [IMPORT_MAP_FILE_NAME]: {
-    name: IMPORT_MAP_FILE_NAME,
-    language: getFileLanguage(IMPORT_MAP_FILE_NAME),
-    value: importMap,
   },
 };

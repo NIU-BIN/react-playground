@@ -52,15 +52,28 @@ header {
     .close_icon {
       width: 12px;
     }
-    &:hover {
-      background-color: #f2f2f2;
-    }
+    // &:hover {
+    //   background-color: #f2f2f2;
+    // }
     &.file_item__active {
-      border-bottom-color: #72a8fa;
+      color: #4590ff;
+      border-bottom-color: #4590ff;
       // background-color: #72cffa8c;
     }
     &.add_icon > img {
       height: 15px;
     }
+    .file_name_input {
+      width: 90px;
+      height: 100%;
+      padding: 0 10px;
+      font-size: 13px;
+      color: #333;
+      background-color: #f0f0f0;
+      border: none;
+      // border: 1px solid #ddd;
+      // border-radius: 4px;
+      outline: none;
+  }
   }
 }

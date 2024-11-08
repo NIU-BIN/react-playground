@@ -46,6 +46,7 @@ export const PlaygroundProvider = (props: PropsWithChildren) => {
     setFiles({ ...files });
   };
 
+  // TODO: 修改文件名不变换顺序
   const updateFileName = (oldFileName: string, newFileName: string) => {
     if (!files[oldFileName] || newFileName === undefined || newFileName === null) return;
 
@@ -58,7 +59,7 @@ export const PlaygroundProvider = (props: PropsWithChildren) => {
 
     setFiles({
       ...rest,
-      newFile,
+      [newFileName]: newFile,
     });
   };
 

@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import Editor from "./Editor";
 import { PlaygroundContext } from "@/context/PlaygroundContext";
 import { compile } from "./compiler";
+import Message from "./Message";
 
 const Preview = () => {
   const [compiledCode, setCompiledCode] = useState("");
@@ -15,7 +16,10 @@ const Preview = () => {
   }, [files]);
 
   return (
-    <div style={{ height: "100%" }} className="code_editor">
+    <div
+      style={{ position: "relative", height: "100%" }}
+      className="code_editor"
+    >
       <Editor
         file={{
           name: "dist.js",
@@ -23,6 +27,7 @@ const Preview = () => {
           language: "javascript",
         }}
       />
+      <Message type="warning" content={new Error().stack!.toString()} />
     </div>
   );
 };

@@ -2,6 +2,12 @@
   margin: 0;
   padding: 0;
 }
+:root {
+  --error: #dc2626;
+  --error-bg: #fee2e2;
+  --warning: #d97706;
+  --warning-bg: #ffedd5;
+}
 
 header {
   height: 46px;
@@ -9,6 +15,7 @@ header {
 }
 
 .code_editor {
+  position: relative;
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -78,5 +85,56 @@ header {
       // border-radius: 4px;
       outline: none;
   }
+  }
+}
+
+
+// 报错以及告警信息
+.tips_message {
+  position: absolute;
+  top: 20vh;
+  left: 50%;
+  transform: translatex(-50%);
+  width: 60%;
+  padding: 16px;
+  background-color: #fff;
+  border: 1px solid;
+  border-radius: 6px;
+  &.error {
+    color: var(--error);
+    border-color: var(--error);
+    background-color:  var(--error-bg);
+    .close_tips {
+      color:  var(--error-bg);
+      background-color: var(--error);
+    }
+  }
+  &.warning {
+    color: var(--warning);
+    border-color: var(--warning);
+    background-color:  var(--warning-bg);
+    .close_tips {
+      color:  var(--warning-bg);
+      background-color: var(--warning);
+    }
+  }
+  .tips_content {
+    text-wrap: wrap;
+    // margin: 0;
+    // overflow: auto;
+    // white-space: break-spaces;
+  }
+  .close_tips {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    border: 1px solid;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    border-radius: 50%;
+    font-size: 8px;
+    text-align: center;
+    cursor: pointer;
   }
 }

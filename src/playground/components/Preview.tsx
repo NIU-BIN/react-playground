@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
-import Editor from "./Editor";
 import { PlaygroundContext } from "@/context/PlaygroundContext";
 import { compile } from "./compiler";
 import iframeRaw from "./iframe.html?raw";
 import { IMPORT_MAP_FILE_NAME } from "@/lib/data";
+import Message from "./Message";
 
 const Preview = () => {
   const [compiledCode, setCompiledCode] = useState("");
@@ -36,13 +36,6 @@ const Preview = () => {
 
   return (
     <div style={{ height: "100%" }} className="code_editor">
-      {/* <Editor
-        file={{
-          name: "dist.js",
-          value: compiledCode,
-          language: "javascript",
-        }}
-      /> */}
       <iframe
         src={iframeURL}
         style={{
@@ -52,6 +45,7 @@ const Preview = () => {
           border: "none",
         }}
       ></iframe>
+      <Message type="warning" content={new Error().stack!.toString()} />
     </div>
   );
 };

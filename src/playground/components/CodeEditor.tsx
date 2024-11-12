@@ -5,7 +5,7 @@ import { PlaygroundContext } from "@/context/PlaygroundContext";
 import { debounce } from "@/utils";
 
 const CodeEditor = () => {
-  const { files, setFiles, selectedFileName } = useContext(PlaygroundContext);
+  const { theme, files, setFiles, selectedFileName } = useContext(PlaygroundContext);
 
   const onEditorChange = (value?: string) => {
     files[selectedFileName].value = value || "";
@@ -17,7 +17,13 @@ const CodeEditor = () => {
   return (
     <div className="code_editor">
       <FileList></FileList>
-      <Editor file={files[selectedFileName]} onChange={debounce(onEditorChange)}></Editor>
+      <Editor
+        option={{
+          theme: `vs-${theme}`,
+        }}
+        file={files[selectedFileName]}
+        onChange={debounce(onEditorChange)}
+      ></Editor>
     </div>
   );
 };

@@ -47,6 +47,7 @@ const Editor = (props: Props) => {
         onMount={handleEditorMount}
         path={file.name}
         value={file.value}
+        theme="vs-dark"
         options={{
           fontSize: 14,
           scrollBeyondLastLine: false,

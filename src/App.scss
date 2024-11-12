@@ -9,9 +9,46 @@
   --warning-bg: #ffedd5;
 }
 
+.light {
+  --bg: #fff;
+  --title-color: #3d3d3d;
+  --text: #333;
+  --border-color: #ebebeb;
+}
+
+.dark {
+  --bg: #2c2c2e;
+  --title-color: #ebebeb;
+  --text: #d7d7d7;
+  --border-color: #5c5c5c;
+}
+
 header {
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   height: 46px;
-  border-bottom: 1px solid #ebebeb;
+  border-bottom: 1px solid var(--border-color);
+  background-color: var(--bg);
+  color: var(--text);
+  transition: all 0.35s;
+  .header_left, .header_right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .header_title {
+    color: var(--title-color);
+    font-weight: bold;
+    font-size: 18px;
+  }
+  .action_item {
+    cursor: pointer;
+    img {
+      width: 24px;
+    }
+  }
 }
 
 .code_editor {
@@ -19,8 +56,10 @@ header {
   display: flex;
   flex-direction: column;
   height: 100%;
+  background-color: var(--bg);
+  color: var(--text);
   .file_list {
-    border-bottom: 1px solid #ebebeb;
+    border-bottom: 1px solid var(--border-color);
   }
   .editor {
     flex: 1;
@@ -31,7 +70,8 @@ header {
   display: flex;
   align-items: center;
   font-size: 12px;
-  color: #686868;
+  // color: #686868;
+  color: var(--text);
   &::-webkit-scrollbar {
     height: 1px;
   }

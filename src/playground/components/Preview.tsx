@@ -5,9 +5,17 @@ import iframeRaw from "./iframe.html?raw";
 import { IMPORT_MAP_FILE_NAME } from "@/lib/data";
 import Message from "./Message";
 
+interface MessageData {
+  data: {
+    type: string;
+    message: string;
+  };
+}
+
 const Preview = () => {
   const [compiledCode, setCompiledCode] = useState("");
   const [iframeURL, setIframeURL] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const { files } = useContext(PlaygroundContext);
 
@@ -30,9 +38,21 @@ const Preview = () => {
     return URL.createObjectURL(new Blob([res], { type: "text/html" }));
   };
 
+  const getErrorMessage = (e: MessageData) => {
+    console.log("e: ", e.data);
+    setErrorMessage(e.data.message);
+  };
+
   useEffect(() => {
     setIframeURL(createIframeURL());
   }, [compiledCode]);
+
+  useEffect(() => {
+    window.addEventListener("message", getErrorMessage);
+    return () => {
+      window.removeEventListener("message", getErrorMessage);
+    };
+  });
 
   return (
     <div style={{ height: "100%" }} className="code_editor">
@@ -45,7 +65,7 @@ const Preview = () => {
           border: "none",
         }}
       ></iframe>
-      <Message type="warning" content={new Error().stack!.toString()} />
+      {errorMessage && <Message type="error" content={errorMessage} />}
     </div>
   );
 };

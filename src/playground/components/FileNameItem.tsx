@@ -2,6 +2,8 @@ import React, { useContext, useRef, useState } from "react";
 import { PlaygroundContext } from "@/context/PlaygroundContext";
 import CloseIcon from "@/assets/close.svg";
 import { APP_CONTAINER_FILE_NAME } from "@/lib/data";
+import type { PopconfirmProps } from "antd";
+import { Button, message, Popconfirm } from "antd";
 
 interface Props {
   fileName: string;
@@ -16,13 +18,10 @@ const FileNameItem = (props: Props) => {
   const [isEdit, setIsEdit] = useState(false);
   const [name, setName] = useState(fileName);
 
-  const handleDelete = (e: React.MouseEvent<HTMLImageElement, MouseEvent>, fileName: string) => {
+  const handleDelete = (e: React.MouseEvent<HTMLElement, MouseEvent>, fileName: string) => {
     e.stopPropagation();
-    const res = confirm(`是否确认删除${fileName}文件？`);
-    if (res) {
-      setSelectedFileName(APP_CONTAINER_FILE_NAME);
-      removeFile(fileName);
-    }
+    setSelectedFileName(APP_CONTAINER_FILE_NAME);
+    removeFile(fileName);
   };
 
   const handleDoubleClick = () => {
@@ -62,12 +61,15 @@ const FileNameItem = (props: Props) => {
       {isEdit || basicFiles.includes(fileName) ? (
         <></>
       ) : (
-        <img
-          src={CloseIcon}
-          alt=""
-          className="close_icon"
-          onClick={(e) => handleDelete(e, fileName)}
-        />
+        <Popconfirm
+          title="提醒"
+          description={`是否确认删除${fileName}文件？`}
+          onConfirm={(e) => handleDelete(e!, fileName)}
+          okText="确认"
+          cancelText="取消"
+        >
+          <img src={CloseIcon} alt="" className="close_icon" />
+        </Popconfirm>
       )}
     </li>
   );

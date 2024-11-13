@@ -1,5 +1,5 @@
-import React, { createContext, PropsWithChildren, useState } from "react";
-import { getFileLanguage } from "../utils";
+import React, { createContext, PropsWithChildren, useEffect, useState } from "react";
+import { getFileLanguage, compress, uncompress } from "../utils";
 import { initFiles } from "../lib/data";
 
 export type Theme = "light" | "dark";
@@ -26,14 +26,31 @@ export interface PlaygroundContextType {
   updateFileName: (oldFieldName: string, newFieldName: string) => void;
 }
 
+const getShareCode = () => {
+  let shareFiles: Files | undefined;
+  const hash = window.location.hash;
+  try {
+    const str = uncompress(decodeURIComponent(hash.slice(1)));
+    shareFiles = JSON.parse(str);
+  } catch (error) {
+    console.log("error", error);
+  }
+  return shareFiles;
+};
+
 export const PlaygroundContext = createContext<PlaygroundContextType>({
   selectedFileName: "App.tsx",
 } as PlaygroundContextType);
 
 export const PlaygroundProvider = (props: PropsWithChildren) => {
   const [theme, setTheme] = useState<Theme>("dark");
-  const [files, setFiles] = useState<Files>(initFiles);
+  const [files, setFiles] = useState<Files>(getShareCode() || initFiles);
   const [selectedFileName, setSelectedFileName] = useState<string>("App.tsx");
+
+  useEffect(() => {
+    const codestr = JSON.stringify(files);
+    window.location.hash = encodeURIComponent(compress(codestr));
+  }, [files]);
 
   const addFile = (fileName: string) => {
     files[fileName] = {

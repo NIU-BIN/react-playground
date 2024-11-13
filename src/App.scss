@@ -36,7 +36,7 @@ header {
   .header_left, .header_right {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 16px;
   }
   .header_title {
     color: var(--title-color);
@@ -45,8 +45,16 @@ header {
   }
   .action_item {
     cursor: pointer;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .icon {
+      fill: var(--title-color);
+    }
     img {
-      width: 24px;
+      width: 20px;
+      height: 20px;
     }
   }
 }

@@ -39,7 +39,6 @@ const Preview = () => {
   };
 
   const getErrorMessage = (e: MessageData) => {
-    console.log("e: ", e.data);
     setErrorMessage(e.data.message);
   };
 

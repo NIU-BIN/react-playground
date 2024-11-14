@@ -32,3 +32,12 @@ export const initFiles: Files = {
     value: AppCss,
   },
 };
+
+export const getTargetImportJson = (version = "18.3.0") => {
+  return `{
+  "imports": {
+    "react": "https://esm.sh/react@${version}",
+    "react-dom/client": "https://esm.sh/react-dom@${version}"
+  }
+}`;
+};

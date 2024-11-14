@@ -3,15 +3,17 @@ import ReactIcon from "@/assets/react.svg";
 import LightIcon from "@/assets/light.svg";
 import DarkIcon from "@/assets/night.svg";
 import { Theme } from "@/context/PlaygroundContext";
+import { Select } from "antd";
 
 interface Props {
   theme: Theme;
   handleChangeTheme: () => void;
   getShareURL: () => void;
+  updateVersion: (version: string) => void;
 }
 
 const Header = (props: Props) => {
-  const { theme, handleChangeTheme, getShareURL } = props;
+  const { theme, handleChangeTheme, getShareURL, updateVersion } = props;
 
   return (
     <header>
@@ -20,6 +22,20 @@ const Header = (props: Props) => {
         <span className="header_title">React Playground</span>
       </div>
       <div className="header_right">
+        <div>
+          <span style={{ fontSize: "14px", marginRight: "10px" }}>React:</span>
+          <Select
+            defaultValue="18.3.0"
+            size="small"
+            style={{ width: 120 }}
+            options={[
+              { value: "18.3.1", label: "18.3.1" },
+              { value: "18.2.0", label: "18.2.0" },
+              { value: "18.0.0", label: "18.0.0" },
+            ]}
+            onChange={(value) => updateVersion(value)}
+          />
+        </div>
         <div className="action_item" onClick={() => handleChangeTheme()}>
           <img src={theme === "light" ? LightIcon : DarkIcon} alt="" />
         </div>

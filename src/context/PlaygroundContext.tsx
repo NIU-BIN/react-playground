@@ -1,6 +1,7 @@
 import React, { createContext, PropsWithChildren, useEffect, useState } from "react";
 import { getFileLanguage, compress, uncompress } from "../utils";
-import { initFiles } from "../lib/data";
+import { initFiles, getTargetImportJson } from "../lib/data";
+import { IMPORT_MAP_FILE_NAME } from "../lib/data";
 
 export type Theme = "light" | "dark";
 
@@ -24,6 +25,7 @@ export interface PlaygroundContextType {
   addFile: (fileName: string) => void;
   removeFile: (fileName: string) => void;
   updateFileName: (oldFieldName: string, newFieldName: string) => void;
+  updateVersion: (version: string) => void;
 }
 
 const getShareCode = () => {
@@ -68,7 +70,7 @@ export const PlaygroundProvider = (props: PropsWithChildren) => {
     setFiles({ ...files });
   };
 
-  // TODO: 修改文件名不变换顺序
+  // TODO: 修改文件名不变换顺序以及不可重名
   const updateFileName = (oldFileName: string, newFileName: string) => {
     if (!files[oldFileName] || newFileName === undefined || newFileName === null) return;
 
@@ -85,6 +87,20 @@ export const PlaygroundProvider = (props: PropsWithChildren) => {
     });
   };
 
+  const updateVersion = (version: string) => {
+    // const importjson = files[IMPORT_MAP_FILE_NAME];
+    const targetImportJson = getTargetImportJson(version);
+    console.log("importjson: ", targetImportJson, version);
+    const { [IMPORT_MAP_FILE_NAME]: value, ...rest } = files;
+    setFiles({
+      ...rest,
+      [IMPORT_MAP_FILE_NAME]: {
+        ...value,
+        value: targetImportJson,
+      },
+    });
+  };
+
   return (
     <PlaygroundContext.Provider
       value={{
@@ -97,6 +113,7 @@ export const PlaygroundProvider = (props: PropsWithChildren) => {
         addFile,
         removeFile,
         updateFileName,
+        updateVersion,
       }}
     >
       {props.children}

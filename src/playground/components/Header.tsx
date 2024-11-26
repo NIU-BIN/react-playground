@@ -55,7 +55,10 @@ const Header = (props: Props) => {
             ></path>
           </svg>
         </div>
-        <div className="action_item">
+        <div
+          className="action_item"
+          onClick={() => window.open("https://github.com/NIU-BIN/react-playground")}
+        >
           <svg
             className="icon"
             viewBox="0 0 1024 1024"

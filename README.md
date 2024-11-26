@@ -1,7 +1,8 @@
 # React Playground
 
-<img style="margin: 20px 0" src="https://github.com/NIU-BIN/portable-ui/blob/react-playground/cover.png"/>
-
+<p align="center">
+  <img style=""margin-top: 40px" src="https://github.com/NIU-BIN/react-playground/blob/main/cover.png"/>
+</p>
 React 在线编辑实时预览
 
 ## 工具

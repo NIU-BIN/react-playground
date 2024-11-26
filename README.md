@@ -7,8 +7,11 @@ React 在线编辑实时预览
 ## 工具
 
 框架：React
+
 编辑器：monaco-editor
+
 文件编译：@babel/standalone
+
 URL 短链接实现：fflate
 
 ## 功能
